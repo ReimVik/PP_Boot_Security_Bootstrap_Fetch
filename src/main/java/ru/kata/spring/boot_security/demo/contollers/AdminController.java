@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.contollers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +19,13 @@ public class AdminController {
     private UserService userService;
 
     @GetMapping()
-    public String allUsers(@ModelAttribute("user") User user, Model model) {
+    public String allUsers(@AuthenticationPrincipal User principal, @ModelAttribute("user") User user, Model model) {
+        model.addAttribute("principal", principal);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("listRoles", userService.getAllRoles());
         return "admin";
     }
+
 
     @PostMapping
     public String addUser(@RequestParam("rolesId") String rolesId, @ModelAttribute("user") User user) {
@@ -32,18 +35,25 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+
     @PatchMapping
-    public String changeUser(@RequestParam("id") long id, @RequestParam("rolesId") String rolesId, @ModelAttribute("user") User user) {
-        if (user.getPassword() != null) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public String changeUser(@RequestParam("id") long id, @RequestParam("name") String name, @RequestParam("surname") String surname,
+                             @RequestParam("age") byte age, @RequestParam("email") String email, @RequestParam(value = "password", required = false) String password,
+                             @RequestParam(value = "rolesId", required = false) String rolesId, @ModelAttribute("user") User user) {
+        user = new User(id, name, surname, age, email);
+        if (password != null) {
+            user.setPassword(passwordEncoder.encode(password));
         }
-        user.setRoles(userService.findRollsbyId(rolesId));
-        userService.updateUser(id,user);
+        if (rolesId != null) {
+            user.setRoles(userService.findRollsbyId(rolesId));
+
+        }
+        userService.updateUser(id, user);
         return "redirect:/admin";
     }
 
     @DeleteMapping
-    public String deleteUser(@RequestParam("id") long id) {
+    public String deleteUser(@RequestParam("id") long id, @ModelAttribute("user") User user) {
         userService.deleteUser(id);
         return "redirect:/admin";
     }

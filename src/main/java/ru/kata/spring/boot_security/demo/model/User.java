@@ -1,7 +1,10 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -12,6 +15,7 @@ import java.util.Set;
 @Table(name = "users")
 public class User implements UserDetails {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,6 +25,9 @@ public class User implements UserDetails {
 
     @Column
     private String surname;
+
+    @Column
+    private byte age;
 
     @Column
     private String email;
@@ -46,18 +53,23 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String surname, String email) {
+    public User(String name, String surname, String email, byte age, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;
+        this.age = age;
+        this.password = password;
     }
 
-    public User(long id, String name, String surname, String email) {
+    public User(long id, String name, String surname, byte age, String email) {
         this.id = id;
         this.name = name;
         this.surname = surname;
+        this.age = age;
         this.email = email;
     }
+
+
 
     public long getId() {
         return id;
@@ -81,6 +93,14 @@ public class User implements UserDetails {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public byte getAge() {
+        return age;
+    }
+
+    public void setAge(byte age) {
+        this.age = age;
     }
 
     public String getEmail() {
@@ -111,12 +131,18 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public String getRolesString() {
+        StringBuilder sb = new StringBuilder();
+        for (Role role : this.getRoles()) {
+            sb.append(role.getName().split("_")[1] + " ");
+        }
+        return sb.toString();
     }
 
-    public void addRole(Role role){
-        this.roles.add(role);
+
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

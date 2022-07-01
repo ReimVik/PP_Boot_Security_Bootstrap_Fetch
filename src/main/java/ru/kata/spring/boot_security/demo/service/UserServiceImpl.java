@@ -27,6 +27,10 @@ public class UserServiceImpl implements UserService{
         return userDao.getAllUsers();
     }
 
+    public User getUserById(long id) {
+        return userDao.getUserById(id);
+    }
+
     @Override
     public void addUser(User user) {
         userDao.saveUser(user);
