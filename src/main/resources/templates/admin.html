@@ -148,19 +148,19 @@
                                 </div>
                                 <div class="row mb-3">
                                     <label for="age" class="form-label text-center"><b>Age</b></label>
-                                    <input type="text" class="form-control" th:field="*{age}" id="age" placeholder="Age">
+                                    <input type="number" class="form-control" th:field="*{age}" id="age" placeholder="Age" min="0">
                                 </div>
                                 <div class="row mb-3">
                                     <label for="email" class="form-label text-center"><b>Email</b></label>
-                                    <input type="text" class="form-control" th:field="*{email}" id="email" placeholder="Email">
+                                    <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Email" required>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="password" class="form-label text-center"><b>Password</b></label>
-                                    <input type="text" class="form-control" th:field="*{password}" id="password" placeholder="Password">
+                                    <input type="text" class="form-control" th:field="*{password}" id="password" placeholder="Password" required>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="rolesId" class="form-label text-center"><b>Role</b></label>
-                                    <select name="rolesId" class="form-select" size="2" multiple aria-label="rolesId" id="rolesId">
+                                    <select name="rolesId" class="form-select" size="2" multiple aria-label="rolesId" id="rolesId" required>
                                         <option value="1">ADMIN</option>
                                         <option value="2">USER</option>
                                     </select>
@@ -207,19 +207,19 @@
                         </div>
                         <div class="form-group row mb-3">
                             <label for="userAge" class="form-label text-center"><b>Age</b></label>
-                            <input type="number" class="form-control" th:field="*{age}" name="age" id="userAge">
+                            <input type="number" class="form-control" th:field="*{age}" name="age" id="userAge" min="0">
                         </div>
                         <div class="form-group row mb-3">
                             <label for="userEmail" class="form-label text-center"><b>Email</b></label>
-                            <input type="text" class="form-control" th:field="*{email}" name="email" id="userEmail">
+                            <input type="email" class="form-control" th:field="*{email}" name="email" id="userEmail" required>
                         </div>
                         <div class="form-group row mb-3">
                             <label for="userPassword" class="form-label text-center"><b>Password</b></label>
-                            <input type="password" class="form-control" th:field="*{password}" name="password" id="userPassword">
+                            <input type="password" class="form-control" th:field="*{password}" name="password" id="userPassword" required>
                         </div>
                         <div class="form-group row mb-3">
                             <label class="form-label text-center"><b>Role</b></label>
-                            <select class="form-select" size="2" name="rolesId" multiple aria-label="role">
+                            <select class="form-select" size="2" name="rolesId" multiple aria-label="role" required>
                                 <option value="1">ADMIN</option>
                                 <option value="2">USER</option>
                             </select>

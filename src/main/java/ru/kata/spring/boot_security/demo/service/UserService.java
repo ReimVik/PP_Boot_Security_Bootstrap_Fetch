@@ -19,4 +19,5 @@ public interface UserService extends UserDetailsService {
     void deleteUser(Long id);
     void updateUser(long id, User user);
     Set<Role> findRollsbyId(String RoleIds);
+    boolean emailCheck(String email);
 }

@@ -21,6 +21,7 @@ public interface UserDao{
 
     List<User> getAllUsers();
     List<Role> getAllRoles();
+    List<String> getAllEmails();
 
 
 }

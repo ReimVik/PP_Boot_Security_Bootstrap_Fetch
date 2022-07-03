@@ -6,6 +6,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -38,7 +39,7 @@ public class AdminController {
 
     @PatchMapping
     public String changeUser(@RequestParam("id") long id, @RequestParam("name") String name, @RequestParam("surname") String surname,
-                             @RequestParam("age") byte age, @RequestParam("email") String email, @RequestParam(value = "password", required = false) String password,
+                             @RequestParam("age") byte age, @Validated @RequestParam("email") String email, @RequestParam(value = "password", required = false) String password,
                              @RequestParam(value = "rolesId", required = false) String rolesId, @ModelAttribute("user") User user) {
         user = new User(id, name, surname, age, email);
         if (password != null) {
@@ -49,6 +50,7 @@ public class AdminController {
 
         }
         userService.updateUser(id, user);
+
         return "redirect:/admin";
     }
 

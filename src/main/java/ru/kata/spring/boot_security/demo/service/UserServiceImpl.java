@@ -61,6 +61,11 @@ public class UserServiceImpl implements UserService{
         return roles;
     }
 
+    @Override
+    public boolean emailCheck(String email) {
+        return !userDao.getAllEmails().contains(email);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

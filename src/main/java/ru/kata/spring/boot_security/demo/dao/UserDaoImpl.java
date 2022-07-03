@@ -7,6 +7,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,6 +27,11 @@ public class UserDaoImpl implements UserDao {
         String jpql = "from Role";
         TypedQuery<Role> query = entityManager.createQuery(jpql, Role.class);
         return query.getResultList();
+    }
+    public List<String> getAllEmails() {
+        List<String> emails = new ArrayList<>();
+        getAllUsers().forEach(user -> emails.add(user.getEmail()));
+        return emails;
     }
 
 

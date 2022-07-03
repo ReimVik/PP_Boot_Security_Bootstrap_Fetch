@@ -29,7 +29,7 @@ public class User implements UserDetails {
     @Column
     private byte age;
 
-    @Column
+    @Column(unique = true)
     private String email;
 
     @Column
