@@ -14,8 +14,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
     private UserService userService;
 
@@ -30,7 +29,6 @@ public class AdminController {
 
     @PostMapping
     public String addUser(@RequestParam("rolesId") String rolesId, @ModelAttribute("user") User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userService.findRollsbyId(rolesId));
         userService.addUser(user);
         return "redirect:/admin";
@@ -41,10 +39,7 @@ public class AdminController {
     public String changeUser(@RequestParam("id") long id, @RequestParam("name") String name, @RequestParam("surname") String surname,
                              @RequestParam("age") byte age, @Validated @RequestParam("email") String email, @RequestParam(value = "password", required = false) String password,
                              @RequestParam(value = "rolesId", required = false) String rolesId, @ModelAttribute("user") User user) {
-        user = new User(id, name, surname, age, email);
-        if (password != null) {
-            user.setPassword(passwordEncoder.encode(password));
-        }
+        user = new User(id, name, surname, age, email, password);
         if (rolesId != null) {
             user.setRoles(userService.findRollsbyId(rolesId));
 

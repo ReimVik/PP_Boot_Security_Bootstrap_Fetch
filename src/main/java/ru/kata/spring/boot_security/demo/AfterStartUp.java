@@ -33,14 +33,14 @@ public class AfterStartUp {
 
 
             roles.add(user);
-            User simpleUser = new User("user","userovich","user@user.ru", (byte) 12, passwordEncoder.encode("123"));
+            User simpleUser = new User("user","userovich","user@user.ru", (byte) 12, "123");
             simpleUser.setRoles(roles);
 
 
             roles = new HashSet<>();
             roles.add(user);
             roles.add(admin);
-            User adminUser = new User("admin","adminovich","admin@admin.ru", (byte) 12, passwordEncoder.encode("123"));
+            User adminUser = new User("admin","adminovich","admin@admin.ru", (byte) 12, "123");
             adminUser.setRoles(roles);
 
 

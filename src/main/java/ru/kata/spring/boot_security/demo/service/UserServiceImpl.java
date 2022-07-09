@@ -4,6 +4,8 @@ package ru.kata.spring.boot_security.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -21,6 +23,7 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     UserDao userDao;
+    PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
     public List<User> getAllUsers() {
@@ -33,6 +36,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void addUser(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         userDao.saveUser(user);
     }
 
@@ -47,6 +51,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void updateUser(long id, User user) {
+        if (user.getPassword() != null) {
+            user.setPassword(encoder.encode(user.getPassword()));
+        }
         userDao.changeUserById(id, user);
     }
 
