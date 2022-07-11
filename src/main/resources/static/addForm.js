@@ -4,7 +4,9 @@ addForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const formData = new FormData(addForm);
-    const object = {};
+    const object = {
+        roles:[]
+    };
 
     formData.forEach((value, key) => {
         if (key === "rolesId"){
@@ -15,7 +17,7 @@ addForm.addEventListener("submit", (e) => {
                 id : roleId,
                 name : "ROLE_" + roleName
             };
-            object.roles = [role];
+            object.roles.push(role);
         } else {
             object[key] = value;
         }

@@ -14,7 +14,7 @@ formEdit.addEventListener('submit', e => {
                 id : roleId,
                 name : "ROLE_" + roleName
             };
-            object.roles = [role];
+            object.roles.push(role);
         } else {
             object[key] = value;
         }
