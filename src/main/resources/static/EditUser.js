@@ -3,7 +3,9 @@ formEdit.addEventListener('submit', e => {
     e.preventDefault();
 
     const formData = new FormData(formEdit);
-    const object = {};
+    const object = {
+        roles: []
+    };
 
     formData.forEach((value, key) => {
         if (key === "rolesId"){
