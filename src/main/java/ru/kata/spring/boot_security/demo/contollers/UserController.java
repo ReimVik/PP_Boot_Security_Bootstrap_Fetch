@@ -16,7 +16,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping()
     public String curentUserInfo(@AuthenticationPrincipal User principal, Model model) {

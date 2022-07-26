@@ -22,7 +22,7 @@ import java.util.Set;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
     PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
